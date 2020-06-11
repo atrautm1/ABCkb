@@ -9,6 +9,7 @@ import logging
 import csv
 from nltk.stem.snowball import SnowballStemmer
 import nltk
+from parse_it import handle
 
 def convertID(object_id, line_num):
     """
@@ -130,7 +131,7 @@ def tsvParser(tsv_File, new_rel_dict):
     unknown_location = False
     #logging.info("Working on:\t%s" % tsv_File.split('/')[-1])
     n = 2
-    with open(tsv_File, 'r') as i:
+    with handle(tsv_File) as i:
         reader = csv.DictReader(i, delimiter='\t')
         for row in reader:
             hit = row["Hit"].replace('\'', '').replace('|', '').replace("\"", '')
@@ -214,7 +215,7 @@ def multiFileParser(filePath, tsv_Out):
 
     for root, dirs, files in os.walk(filePath):
         for name in files:
-            if name.endswith(".tsv"):
+            if name.endswith(".tsv.gz"):
                 fileList.append(os.path.join(root, name))
 
     tot = len(fileList)
@@ -340,8 +341,6 @@ def main(argv):
     graph_filtered.write(neo4jEdgeHeader)
 
     total_rels = 0
-    agricolaIDs = set()
-    agricola_count = set()
     pubmed_count = set()
     predCountsList = []
     locFilter = []
@@ -392,22 +391,9 @@ def main(argv):
                 evidenceList.append(evidence)
                 evidenceSet.add(article)
                 # NEEDS MODIFICATION
-                # look for duplicates between pubmed and agricola
+                # Count pubmed articles
                 if article.isdigit():
                     pubmed_count.add(article)
-                else:
-                    if article == 'Doc':  # skip column header
-                        continue
-                    agricola_count.add(article)
-                    try:
-                        if article[3].isdigit():
-                            agricolaIDs.add(article[0:3])
-                        else:
-                            agricolaIDs.add(article[0:4])
-                    except:
-                        print(article)
-                        print(linguaHit)
-                        break
             # Filter by occurrence
             if occurrence <= 1:
                 # accounts for 2 abstract hits (0.5+0.5) and above
@@ -438,8 +424,6 @@ def main(argv):
     # of Unique Node Pairs:\t{str(len(uniqueNodePairSet))}
     # of Unique Triples(subj,pred,obj) aka Edges:\t{str(total_rels)}
     # of Absolute Relationship Occurrences(Unweighted):\t{str(absoluteRelCount)}
-    Agricola ID-prefixes:\n {agricolaIDs}
-    # of Unique Agricola articles:\t{str(len(agricola_count))}
     # of Unique Pubmed articles:\t{str(len(pubmed_count))}
     """
     logging.info(stats)
