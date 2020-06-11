@@ -1,0 +1,112 @@
+[
+    {
+        "name": "chebi",
+        "baseURL": "http://ftp.ebi.ac.uk/pub/databases/chebi/",
+        "files": [
+            "ontology/chebi.obo.gz",
+            "Flat_file_tab_delimited/compound_origins.tsv",
+            "Flat_file_tab_delimited/compounds.tsv.gz"
+        ]
+    },
+    {
+        "name": "ctd",
+        "baseURL": "http://ctdbase.org/reports/",
+        "files": [
+            "CTD_chem_gene_ixns.tsv.gz",
+            "CTD_chem_go_enriched.tsv.gz",
+            "CTD_chemicals_diseases.tsv.gz",
+            "CTD_diseases.obo.gz",
+            "CTD_genes_diseases.tsv.gz",
+            "CTD_genes_pathways.tsv.gz",
+            "CTD_genes.tsv.gz"
+        ]
+    },
+    {
+        "name":"do",
+        "baseURL":"https://raw.githubusercontent.com/DiseaseOntology/HumanDiseaseOntology/master/src/ontology/",
+        "files":[
+            "doid.obo"
+        ]
+    },
+    {
+        "name":"go",
+        "baseURL":"http://current.geneontology.org/ontology/",
+        "files":[
+            "go.obo"
+        ]
+    },
+    {
+        "name": "hpo",
+        "baseURL": "http://compbio.charite.de/jenkins/job/",
+        "files": [
+            "hpo.annotations/lastStableBuild/artifact/misc/phenotype_annotation_negated.tab",
+            "hpo.annotations/lastStableBuild/artifact/misc/phenotype_annotation.tab",
+            "hpo.annotations/lastSuccessfulBuild/artifact/util/annotation/genes_to_phenotype.txt",
+            "hpo.annotations/lastSuccessfulBuild/artifact/util/annotation/phenotype_to_genes.txt",
+            "hpo.annotations.current/lastSuccessfulBuild/artifact/current/phenotype.hpoa"
+        ]
+    },
+    {
+        "name": "hpo",
+        "baseURL": "http://purl.obolibrary.org/obo/",
+        "files": [
+            "hp.obo"
+        ] 
+    },
+    {
+        "name": "mesh",
+        "baseURL": "ftp://nlmpubs.nlm.nih.gov/online/mesh/2019/",
+        "files": [
+            "asciimesh/c2019.bin",
+            "asciimesh/d2019.bin",
+            "meshtrees/mtrees2019.bin"
+        ]
+    },
+    {
+        "name": "nal",
+        "baseURL": "https://agclass.nal.usda.gov/downloads/",
+        "files": [
+            "NAL_Thesaurus_2019_XML.zip"
+        ]
+    },
+    {
+        "name": "ncbi_gene",
+        "baseURL": "https://ftp.ncbi.nlm.nih.gov/gene/DATA/",
+        "files": [
+            "gene_info.gz",
+            "gene2accession.gz",
+            "gene2go.gz",
+            "gene2pubmed.gz",
+            "mim2gene_medgen"
+        ]
+    },
+    {
+        "name": "ncbi_taxonomy",
+        "baseURL": "https://ftp.ncbi.nlm.nih.gov/pub/taxonomy/",
+        "files": [
+            "taxdump.tar.gz"
+        ]
+    },
+    {
+        "name": "omim",
+        "baseURL": "https://data.omim.org/downloads/{omim_key}/",
+        "files":[
+            "genemap2.txt"
+        ]
+    },
+    {
+        "name": "omim",
+        "baseURL": "https://omim.org/static/omim/data/",
+        "files": [
+            "mim2gene.txt"
+        ]
+    },
+    {
+        "name": "mondo",
+        "baseURL": "http://purl.obolibrary.org/obo/",
+        "files": [
+            "mondo.obo",
+            "mondo.json"
+        ]
+    }
+]

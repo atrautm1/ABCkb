@@ -1,0 +1,30 @@
+version: '3.7'
+
+services:
+  python:
+    image: python:slim
+    build: .
+    volumes:
+      - .:/app
+    command: bash /app/scripts/extractTransform.sh
+  neo4j:
+    image: neo4j:3.5
+    volumes:
+      - .:/app
+      - ./docker/neo4j/databases:/data/databases
+      - ./docker/neo4j/logs:/logs
+      - ./docker/neo4j/plugins:/plugins
+      - ./docker/neo4j/import:/import
+    environment:
+      EXTENSION_SCRIPT: "/app/scripts/build_kb.sh"
+      NEO4J_AUTH: none
+      NEO4J_dbms_security_procedures_unrestricted: "apoc.*"
+      SECURE_FILE_PERMISSIONS: "yes"
+    ports:
+      - 7474:7474
+      - 7687:7687
+
+volumes:
+  data:
+  import:
+
