@@ -50,3 +50,8 @@ Step 2: Start docker container
 
 Credits:
 Dr. Richard Linchangco, Aaron Trautman, Steven Blanchard, Dr. Jeremy Jay, Dr. Cory Brouwer, and the interns that have contributed many features of this program
+
+## Troubleshooting
+
+Downloading data failed...
+- I have written a script which should automatically extract pieces from sources in the sources.json file but this may not always work. Some sources prevent programmatic access to their data in which case you will need to manually download the files.
