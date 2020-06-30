@@ -6,31 +6,26 @@ Utilizes docker-compose, which should be installed on your machine
 ## Important! 
 - Please ensure your terms of service either individidually or with your institution permits you to utilize the source data. Contact each source listed below to find out more.
 
-## Data sources:
-- Chemical Entities of Biological Interest (ChEBI)
-    - https://www.ebi.ac.uk/chebi/
-- Comparative Toxicogenomics Database
-    - https://www.ctdbase.org
-- Disease Ontology
-    - https://www.disease-ontology.org
-- Gene Ontology
-    - http://www.geneontology.org
-- Human Phenotype Ontology
-    - https://www.hpo.jax.org/app/
-- Medical Subject Headings
-    - https://www.meshb.nlm.nih.gov/search
-- MONDO
-    - https://www.mondo.monarchinitiative.org
-- Nal Thesaurus
-    - https://www.agclass.nal.usda.gov
-- NCBI Gene
-    - https://www.ncbi.nlm.nih.gov/gene
-- NCBI Taxonomy
-    - https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi
-- Online Mendelian Inheritance in Man 
-    - https://www.omim.org
-    - You must request access which you can do here: https://www.omim.org/downloads/
-- Text-mined data from MEDLINE Abstracts (optional)
+## Data Sources
+|Name| Data|
+|---|---|
+|[Chemical Entities of Biological Interest (ChEBI)](https://www.ebi.ac.uk/chebi/)|C|
+|[Comparative Toxicogenomics Database](https://www.ctdbase.org)|Co|
+|[Disease Ontology](https://www.disease-ontology.org)|D|
+|[Gene Ontology](http://www.geneontology.org)|Pa|
+|[Human Phenotype Ontology](https://www.hpo.jax.org/app/)|D|
+|[Medical Subject Headings](https://www.meshb.nlm.nih.gov/search)|O,Pl,C,Pa,D|
+|[MONDO](https://www.mondo.monarchinitiative.org)|D|
+|[Nal Thesaurus](https://www.agclass.nal.usda.gov)|Pl,C,D|
+|[NCBI Gene](https://www.ncbi.nlm.nih.gov/gene)|G|
+|[NCBI Taxonomy](https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi)|O,Pl|
+|*[Online Mendelian Inheritance in Man](https://www.omim.org)|G,D|
+| Text-mined data from MEDLINE Abstracts|Co|
+
+All sources from their respective URL with the extracted abbreviated node labels -- Plant (Pl), Chemical (C), Gene (G), Pathway (Pa), Phenotype (D), Organism (O), Connectivity (Co) -- are shown here.
+
+\*You must request access to OMIM which you can do here: https://www.omim.org/downloads/
+
 
 ## Instructions for Building the Knowledgebase
 
