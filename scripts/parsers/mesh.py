@@ -71,8 +71,15 @@ class Parser:
                 self.__writeEdge(k, 'mapped_to', mesh_id)
 
     def __writeNode(self, record):
+        phenom = False
         if "Chemical" in record.labels and "Phenotype" in record.labels:
             record.labels.remove("Chemical") # Used for node D065606 and others that may double label
+        for t in record.tree:
+            if t.startswith("G02"):
+                phenom = True
+        if "Chemical" in record.labels and phenom:
+            print("removed")
+            record.labels.remove("Chemical")
         self.nodeOut.write(str(record))
         self.nodeOut.write('\n')
 
