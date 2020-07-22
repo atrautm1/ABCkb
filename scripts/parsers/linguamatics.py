@@ -166,16 +166,17 @@ def tsvParser(tsv_File, new_rel_dict):
                 # Add filtered predicate to list
                 filtered_preds.add(predicate)
                 tags.append(tagged_text)
+                if predicate:
+                    preds = [rel["predicate"] for rel in new_rel_dict[(subjID,objID)]]
 
-                preds = [rel["predicate"] for rel in new_rel_dict[(subjID,objID)]]
-
-                if predicate not in preds:
-                    new_rel_dict[(subjID,objID)].append({"predicate":predicate, 
-                                                         "pmid":[doc], "evidence":[f"{location}:{hit}"]})
-                else:
-                    ind = preds.index(predicate)
-                    new_rel_dict[(subjID,objID)][ind]["pmid"].append(doc)
-                    new_rel_dict[(subjID,objID)][ind]["evidence"].append(f"{location}:{hit}")
+                    if predicate not in preds:
+                        new_rel_dict[(subjID,objID)].append({"predicate":predicate, 
+                                                             "pmid":[doc], "file":set([tsv_File]) })#"evidence":[f"{location}:{hit}"]})
+                    else:
+                        ind = preds.index(predicate)
+                        new_rel_dict[(subjID,objID)][ind]["pmid"].append(doc)
+                        new_rel_dict[(subjID,objID)][ind]["file"].add(tsv_File)
+                        #new_rel_dict[(subjID,objID)][ind]["evidence"].append(f"{location}:{hit}")
 
                 # change set for analysis of blanks
                 #if predicate == '':
@@ -427,10 +428,11 @@ def main(argv):
     # of Unique Pubmed articles:\t{str(len(pubmed_count))}
     """
     logging.info(stats)
+
     # Find predicates accounting for 95% of data
-    findPredicateDataThreshold(locFilter, locFilterTotal, tsv_Out, 'filtered')
-    findPredicateDataThreshold(
-        predCountsList, absoluteRelCount, tsv_Out, 'unfiltered')
+    # findPredicateDataThreshold(locFilter, locFilterTotal, tsv_Out, 'filtered')
+    # findPredicateDataThreshold(
+    #     predCountsList, absoluteRelCount, tsv_Out, 'unfiltered')
 
 
 if __name__ == '__main__':
