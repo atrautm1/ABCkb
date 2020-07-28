@@ -33,6 +33,7 @@ Step 1: Clone/fork this project
 
 Step 2: Prepare for data
 - Insert the OMIM key recieved via email into a secrets.json file within the scripts folder following the example_secrets.json format
+    - The key is in the url you recieve from them: "data.omim.org/downloads/\<secret-key\>/filename.txt"
 - Ensure proper permissions for data usage are acquired 
 - Allocate at least 8gb ram and 2gb swap for docker
 - Storage requirements
@@ -47,6 +48,25 @@ Step 3: Start docker container
 
 Credits:
 Dr. Richard Linchangco, Aaron Trautman, Steven Blanchard, Dr. Jeremy Jay, Dr. Cory Brouwer, and the interns that have contributed many features of this program
+
+## How to use the knowledgebase
+
+[Cypher reference guide](https://neo4j.com/docs/pdf/cypher-refcard-3.5.pdf)
+
+Here are some example queries to get you started..
+
+1. Does the node exist?
+- `MATCH (n) WHERE n.name = "Avena sativa" 	OR "Avena sativa" in n.synonyms RETURN n`
+
+2. Open discovery with Avena sativa...
+- `MATCH p=(:Plant {name:"Avena sativa"})-[:text_mined]->(:Chemical)-[:text_mined]->(:Gene) RETURN p`
+
+3. Closed discovery with Avena sativa...
+- `MATCH p=(:Plant {name:"Avena sativa"})-[:text_mined]->(:Chemical)-[:text_mined]->(:Gene {name:"HSD11B1"}) RETURN p`
+
+4. Show schema
+- There is not really a "schema" for graph databases but the following command works pretty well to show connectivity
+- `call db.schema.visualization()`
 
 ## Troubleshooting
 
