@@ -51,6 +51,10 @@ Dr. Richard Linchangco, Aaron Trautman, Steven Blanchard, Dr. Jeremy Jay, Dr. Co
 
 ## How to use the knowledgebase
 
+neo4j can be used either in browser or via the terminal once the ABCkb finishes building
+- After the Knowledgebase is built, you should see that an instance is running on localhost:7474/
+- In the terminal, you can run cypher-shell "<your-query>;"
+
 [Cypher reference guide](https://neo4j.com/docs/pdf/cypher-refcard-3.5.pdf)
 
 Here are some example queries to get you started..
