@@ -41,6 +41,11 @@ Step 2: Prepare for data
     - 16gb purgeable data (docker/data;docker/neo4j/import)
     - 4gb Database size
 
+Step 4: Download the NLP results place them into the docker/data folder
+- [NLP results](https://figshare.com/s/f237538984b7e271f071)
+- uncompress the archive, but leave the individual tsv files compressed
+    - `tar -xzvf linguamatics.tar.gz` 
+
 Step 3: Start docker container
 
 - `docker-compose -f docker-compose.yml up`
