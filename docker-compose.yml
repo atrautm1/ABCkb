@@ -3,7 +3,6 @@ version: '3.7'
 services:
   python:
     image: python:slim
-    build: .
     volumes:
       - .:/app
     command: bash /app/scripts/extractTransform.sh
