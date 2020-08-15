@@ -36,7 +36,7 @@ if [[ ! -f "${PROG}/docker/neo4j/import/FINISHED_IMPORT" ]]; then
     time python3 "${PROG}${BARE}" -i "${DATA}/do/doid.obo" -o "${RESULT}" -n disease.ontology.do
     #time python3 "${PROG}${BARE}" -i "${DATA}/omim/genemap2.txt" "${DATA}/omim/mim2gene.txt" -o "${RESULT}" -n omim.disease
     time python3 "${PROG}${BARE}" -i "${DATA}/ncbi_taxonomy/names.dmp" "${DATA}/ncbi_taxonomy/nodes.dmp" -o "${RESULT}" -n nih.nlm.ncbi.taxonomy
-    time python3 "${PROG}${BARE}" -i "${DATA}/ncbi_gene/gene_info.gz" "${DATA}/ncbi_gene/gene2go.gz" "${DATA}/ncbi_gene/mim2gene_medgen.gz" "${DATA}/mondo/mondo.obo" -o "${RESULT}" -n nih.nlm.ncbi.gene
+    time python3 "${PROG}${BARE}" -i "${DATA}/ncbi_gene/gene_info.gz" "${DATA}/ncbi_gene/gene2go.gz" "${DATA}/ncbi_gene/mim2gene_medgen" "${DATA}/mondo/mondo.obo" -o "${RESULT}" -n nih.nlm.ncbi.gene
     time python3 "${PROG}${BARE}" -i "${DATA}/mesh/d2019.bin" "${DATA}/mesh/c2019.bin" -o "${RESULT}" -n nih.nlm.mesh
     time python3 "${PROG}${BARE}" -i "${DATA}/mondo/mondo.obo" -o "${RESULT}" -n mondo
     echo "Parsing CTD Associations..."
