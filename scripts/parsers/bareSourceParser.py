@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-import collections
+from collections import defaultdict
 import sys
 import codecs
 import re
@@ -17,7 +17,41 @@ import mesh
 import nal
 import mondo
 
-def geneParser(tsvFile, gene2go, namespace):
+def converter(GENE_FILE, MONDO_FILE, namespace):
+    omim2gene = defaultdict(set)    #Gene to gene
+    gene2omim = defaultdict(set)    # Gene to Phene
+    omim2mondo = defaultdict(set)   # Phene to Phene
+    with handle(GENE_FILE) as genes:
+        rows = csv.DictReader(genes, delimiter="\t")
+        for row in rows:
+            MID = row["#MIM number"]
+            GID = row["GeneID"]
+            if GID != "-":
+                if row["type"] == "gene":
+                    omim2gene[MID].add(f"{namespace}.id:{GID}")
+                elif row["type"] == "phenotype":
+                    gene2omim[f"{namespace}.id:{GID}"].add(MID)
+    with handle(MONDO_FILE) as mf:
+        omim_id = []
+        mondo_id = ""
+        is_obsolete = False
+        for line in mf:
+            if line.startswith("[Term]"):
+                if mondo_id and omim_id and not is_obsolete:
+                    for om in omim_id:
+                        omim2mondo[om] = mondo_id
+                    omim_id = []
+                    mondo_id = ""
+                is_obsolete = False
+            elif line.startswith("id:"):
+                mondo_id = line.strip().split("id: ")[1]
+            elif line.startswith("xref: OMIM"):
+                omim_id.append(line.split(" ")[1].split(":")[1])
+            elif line.startswith("is_obsolete"):
+                is_obsolete = True
+    return omim2gene, gene2omim, omim2mondo
+
+def geneParser(gene_info, gene2go, mimgen, mondo, namespace):
     """
     Parser function for ncbi gene file
     """
@@ -28,6 +62,7 @@ def geneParser(tsvFile, gene2go, namespace):
     # Drive/PhD/dissert/data/EntrezGene_01042017/gene2go -o
     # /Users/rlinchan/Google\ Drive/PhD/dissert/data/neo4j_input/v3/ -n
     # nih.nlm.ncbi.gene
+    
     organisms = {
         "9606":"Homo sapiens",
         "10116":"Rattus norvicigus",
@@ -41,8 +76,8 @@ def geneParser(tsvFile, gene2go, namespace):
         for a in chars:
             item = item.replace(a,"")
         return item
-    geneDict = collections.defaultdict(dict)
-    with handle(tsvFile) as infile:
+    geneDict = defaultdict(dict)
+    with handle(gene_info) as infile:
         reader = csv.DictReader(infile, delimiter='\t')
         for row in reader:
             idee = row["#tax_id"]
@@ -73,6 +108,19 @@ def geneParser(tsvFile, gene2go, namespace):
                 goID = row["GO_ID"]
                 geneDict[geneID]['edges'].append(('xref', goID))
     logger.info(f"{len(geneDict)} edges added to Dict")
+
+    omim2gene, gene2omim, omim2mondo = converter(mimgen, mondo, namespace)
+    # Find OMIM associated phenotypes
+    matches = 0
+    for g in geneDict.keys():
+        #geneID = g.split(":")[1]
+        if g in gene2omim.keys():
+            OMIM_ID = gene2omim[g]
+            for oid in OMIM_ID:
+                if oid in omim2mondo.keys():
+                    matches += 1
+                    geneDict[g]['edges'].append(('associated_with', omim2mondo[oid]))
+    logger.info(f"{matches} Gene to Phenotype associations")
     return geneDict
 
 def taxParser(tsvFile, nodesFile, namespace):
@@ -82,8 +130,8 @@ def taxParser(tsvFile, nodesFile, namespace):
     """
     synTitles = set(['acronym', 'blast name', 'common name', 'equivalent name', 'genbank acronym',
                      'genbank common name', 'genbank synonym', 'synonym', 'scientific name'])
-    taxDict = collections.defaultdict(dict)
-    taxChildrenTree = collections.defaultdict(set)
+    taxDict = defaultdict(dict)
+    taxChildrenTree = defaultdict(set)
     files = [tsvFile, nodesFile]
     for dmp in files:
         with handle(dmp) as inFile:
@@ -115,7 +163,7 @@ def taxParser(tsvFile, nodesFile, namespace):
                     if taxID in taxChildrenTree:
                         taxChildrenTree[parentID].add(taxID)
     # recursively find all children of Embryophyta to label as plant
-    outDict = collections.defaultdict(dict)
+    outDict = defaultdict(dict)
     childSet = set()
     # Add plant label
     addLabel(taxChildrenTree, childSet, 'nih.nlm.ncbi.taxonomy.id:3193')
@@ -212,8 +260,6 @@ def csvNodeOutput(oboDict, csvOut, namespace):
             ID2 = relationship[1]
             edgeList = [uid, rel, namespace, '1', ID2]
             edgeString = "|".join(edgeList) + '\n'
-            # plant_trait.to has relation inheres_in referencing Environmental
-            # Ontology
             prefix = ID2.split(':')[0].strip()
             if rel == 'xref' and prefix in oboIDs:
                 xrefOut.write(edgeString)
@@ -313,11 +359,17 @@ def main():
     elif NAMESPACE == "nih.nlm.ncbi.gene":
         logger.info('Parsing NCBI gene files...')
         for F in INFILE:
-            if F.endswith("gene_info.gz"):
-                f1 = F
+            if "gene_info" in F:
+                gene_info = F
+            elif "gene2go" in F:
+                gene2go = F
+            elif "mim2gene" in F:
+                mimgen = F
+            elif "mondo" in F:
+                mondo = F
             else:
-                f2 = F
-        outDict = geneParser(f1, f2, NAMESPACE)
+                logger.error(f"I'm not sure what to do with this file!\n file:{F}")
+        outDict = geneParser(gene_info, gene2go, mimgen, mondo, NAMESPACE)
     # NALT parsing
     elif NAMESPACE == "usda.nal.thesaurus":
         logger.info('Parsing NAL files...')

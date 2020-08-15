@@ -23,10 +23,11 @@ RELATIONSHIPS=(
 	"mondo.edges.csv"
 	"mondo.xref.edges.csv"
 	"nih.nlm.mesh.edges.csv"
+	"nih.nlm.ncbi.gene.edges.csv"
 	"nih.nlm.ncbi.gene.xref.edges.csv"
 	"nih.nlm.ncbi.taxonomy.edges.csv"
-	"omim.disease.edges.csv"
-	"omim.disease.xref.edges.csv"
+	#"omim.disease.edges.csv"
+	#"omim.disease.xref.edges.csv"
 	"usda.nal.thesaurus.edges.csv"
 )
 
