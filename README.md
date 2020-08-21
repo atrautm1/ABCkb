@@ -5,6 +5,7 @@ Utilizes docker-compose, which should be installed on your machine
 
 ## Important! 
 - Please ensure your terms of service either individidually or with your institution permits you to utilize the source data. Contact each source listed below to find out more.
+- Additionally, this database is intended for nutrition research and is not a substitute for professional medical advice, diagnosis, or treatment. Always seek the advice of your health care provider with any medical or health-related questions. Don't disregard medical advice or delay seeking treatment because of anything you find in this database. 
 
 ## Data Sources
 |Name| Data|
@@ -19,12 +20,10 @@ Utilizes docker-compose, which should be installed on your machine
 |[Nal Thesaurus](https://www.agclass.nal.usda.gov)|Pl,C,D|
 |[NCBI Gene](https://www.ncbi.nlm.nih.gov/gene)|G|
 |[NCBI Taxonomy](https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi)|O,Pl|
-|*[Online Mendelian Inheritance in Man](https://www.omim.org)|G,D|
+|[NCBI MedGen](https://www.ncbi.nlm.nih.gov/books/NBK159970/)|Co|
 | Text-mined data from MEDLINE Abstracts|Co|
 
 All sources from their respective URL with the extracted abbreviated node labels -- Plant (Pl), Chemical (C), Gene (G), Pathway (Pa), Phenotype (D), Organism (O), Connectivity (Co) -- are shown here.
-
-\*You must request access to OMIM which you can do here: https://www.omim.org/downloads/
 
 
 ## Instructions for Building the Knowledgebase
