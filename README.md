@@ -38,12 +38,12 @@ Step 2: Prepare for data
     - 16gb purgeable data (docker/data;docker/neo4j/import)
     - 4gb Database size
 
-Step 4: Download the NLP results place them into the docker/data folder
+Step 3: Download the NLP results place them into the docker/data folder
 - [NLP results](https://figshare.com/s/f237538984b7e271f071)
 - uncompress the archive, but leave the individual tsv files compressed
     - `tar -xzvf linguamatics.tar.gz` 
 
-Step 3: Start docker container
+Step 4: Start docker container
 
 - `docker-compose -f docker-compose.yml up`
 -  Make some coffee; this takes about 45 minutes on the first run
@@ -52,9 +52,15 @@ Credits:
 Aaron Trautman, Dr. Richard Linchangco, Steven Blanchard, Dr. Jeremy Jay, Dr. Cory Brouwer, and the interns that have contributed many features of this program
 
 ## How to use the knowledgebase
-
-neo4j can be used either in browser or via the terminal once the ABCkb finishes building
+3 Ways to use the ABCkb
+1. Via the custom interface
+- Use for searching and developing queries
+- After the Knowledgebase is built and the database has started, you will see that an instance is running on http://0.0.0.0:8000/ 
+2. In the neo4j browser
+- Create graphs and interact with the database using cypher
 - After the Knowledgebase is built, you should see that an instance is running on localhost:7474/
+3. Via the terminal
+- Interact with the database using cypher
 - In the terminal, you can run cypher-shell "<your-query>;"
 
 [Cypher reference guide](https://neo4j.com/docs/pdf/cypher-refcard-3.5.pdf)
