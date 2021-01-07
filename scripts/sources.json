@@ -88,20 +88,6 @@
         ]
     },
     {
-        "name": "omim",
-        "baseURL": "https://data.omim.org/downloads/{omim_key}/",
-        "files":[
-            "genemap2.txt"
-        ]
-    },
-    {
-        "name": "omim",
-        "baseURL": "https://omim.org/static/omim/data/",
-        "files": [
-            "mim2gene.txt"
-        ]
-    },
-    {
         "name": "mondo",
         "baseURL": "http://purl.obolibrary.org/obo/",
         "files": [

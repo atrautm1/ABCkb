@@ -81,30 +81,21 @@ def main():
     check_directory(path.join(DATA_DIR, "neo4j_input"))
 
     # Read sources.json file
-    try:
-        with open(path.join(LOCATION, "sources.json"), "r") as json_file, open(
-            path.join(LOCATION, "secrets.json"), "r") as secrets_file:
-            # Load the json data
-            SOURCES = json.load(json_file)
-            SECRETS = json.load(secrets_file)
-            # Iterate through sources
-            for source in SOURCES:
-                # Where each source will go, 'source name + date'
-                source_directory = path.join(DATA_DIR, source["name"])
-                # Ensure directory exists
-                check_directory(source_directory)
-                # Iterate through files and download if not exists
-                for data_file in source["files"]:
-                    # Set url for the file
-                    if source["name"] == "omim":
-                        url = str(source["baseURL"]+data_file).format(**SECRETS)
-                    else:
-                        url = source["baseURL"]+data_file
-                    urls.append((url, source_directory))
-    except FileNotFoundError as e:
-        logger.error("Did you put your secrets.json file in the scripts directory??")
-        logger.error(e)
-        exit(1)
+    with open(path.join(LOCATION, "sources.json"), "r") as json_file:
+        # Load the json data
+        SOURCES = json.load(json_file)
+        # Iterate through sources
+        for source in SOURCES:
+            # Where each source will go, 'source name + date'
+            source_directory = path.join(DATA_DIR, source["name"])
+            # Ensure directory exists
+            check_directory(source_directory)
+            # Iterate through files and download if not exists
+            for data_file in source["files"]:
+                # Set url for the file
+                url = source["baseURL"]+data_file
+                urls.append((url, source_directory))
+                
     with concurrent.futures.ThreadPoolExecutor(max_workers=4) as executor:
         executor.map(runner, urls)
 
