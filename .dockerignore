@@ -1,0 +1,6 @@
+scripts/secrets.json
+.git
+docker
+**/.env
+**/*.pyc
+**/__pycache__
