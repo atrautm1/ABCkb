@@ -1,0 +1,124 @@
+{% extends "browser/base.html" %}
+{% load static %}
+{% block content %}
+{% comment %} <form action="{% url 'browser-search' %}" method="get">
+    <div class="container d-flex justify-content-center">
+        <div class=" align-items-center col-md-8 col-md-offset-8">
+            <div class="input-group my-3 shadow-sm bg-white">
+                <input type="text" name="search-term" id="Q" class="form-control align-items-center text-center"
+                    value="{{ Q }}">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary shadow-sm bg-white" type="submit"
+                        href="{% url 'browser-search' %}">
+                        <img src="{% static 'browser/search_logo.png' %}" width="15" />
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form> {% endcomment %}
+<h1>Query Builder</h1>
+<form method="get" id="buildGraph" action="/query/">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="row">
+                    <div class="col">
+                        <p class="h5">Start Nodes</p>
+                    </div>
+                    <div class="col">
+                        <button type="button" class="btn btn-primary" style="visibility: hidden">Hey, no
+                            peeking</button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="table-responsive">
+                        <table class="table table-hover w-auto">
+                            <thead>
+                                <tr>
+                                    {% for h in header %}
+                                    <th>{{h}}</th>
+                                    {% endfor %}
+                            </thead>
+                            <tbody>
+                                {% for r in snows %}
+                                <tr>
+                                    {% for item in r %}
+                                    <td>{{item}}</td>
+                                    {% endfor %}
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        <caption>Selected start points from the previous page</caption>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col">
+                            <p class="h5">End Nodes</p>
+                        </div>
+                        <div class="col">
+                            <div class="btn-group btn-group-toggle d-flex" data-toggle="tooltip" data-placement="top"
+                                title="Select open for open discovery or closed for closed discovery"
+                                data-toggle="buttons">
+                                <label class="btn btn-secondary active">
+                                    <input type="radio" name="open_discovery" id="openD" autocomplete="off" checked> Open
+                                </label>
+                                <label class="btn btn-secondary">
+                                    <input type="radio" name="closed_discovery" id="closeD" autocomplete="off" disabled> Closed
+                                </label>
+                            </div>
+                            {% comment %} <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Query Type
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" onclick="open_discovery()">Open Discovery</a>
+                                    <a class="dropdown-item" onclick="closed_discovery()">Closed Discovery</a>
+                                </div>
+                            </div> {% endcomment %}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="table-responsive">
+                            <table id="discovery" class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        {% for h in open_header %}
+                                        <th>{{h}}</th>
+                                        {% endfor %}
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for r in open_rows %}
+                                    <tr>
+                                        <td>
+                                            <div class="custom-control custom-radio">
+                                                <input type="radio" name="toLabel" form="buildGraph"
+                                                    onclick="show_spaceship('submit_button')"
+                                                    value="{{ r }}" class="custom-control-input"
+                                                    id="discover_cbox-{{ forloop.counter }}" unchecked>
+                                                <label class="custom-control-label"
+                                                    for="discover_cbox-{{ forloop.counter }}"></label></div>
+                                        </td>
+                                        <td>{{r}}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                            <caption>Where do you want the query to stop?</caption>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button type="submit" form="buildGraph" style="visibility: hidden" id="submit_button" class="btn btn-secondary mr-2"
+        href="{% url 'browser-runquery' %}">Submit</button>
+</form>
+
+{% endblock content %}

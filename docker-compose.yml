@@ -2,9 +2,13 @@ version: '3.7'
 
 services:
   python:
-    image: python:slim
+    build: .
     volumes:
       - .:/app
+    ports:
+      - 8000:8000
+    links:
+      - neo4j
     command: bash /app/scripts/extractTransform.sh
   neo4j:
     image: neo4j:3.5
@@ -26,4 +30,3 @@ services:
 volumes:
   data:
   import:
-

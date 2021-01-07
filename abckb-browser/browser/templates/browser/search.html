@@ -1,0 +1,53 @@
+{% extends "browser/base.html" %}
+{% load static %}
+{% block content %}
+<form action="{% url 'browser-search' %}" method="get">
+  <div class="container d-flex justify-content-center">
+    <div class=" align-items-center col-md-8 col-md-offset-8">
+      <div class="input-group my-3 shadow-sm bg-white">
+        <input type="text" name="search-term" id="Q" class="form-control align-items-center text-center"
+          value="{{ Q }}">
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary shadow-sm bg-white" type="submit" href="{% url 'browser-search' %}">
+            <img src="{% static 'browser/search_logo.png' %}" width="15" />
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+<form action="/builder/" method="post" id="buildForm">{% csrf_token %}
+  <div class="container">
+    <div class="table-responsive">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Select</th>
+            {% for h in header %}
+            <th>{{h}}</th>
+            {% endfor %}
+        </thead>
+        <tbody>
+          {% for r in rows %}
+          <td>
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" name="checkboxes" value="{{ forloop.counter }}" form="buildForm"
+                class="custom-control-input" id="checkbox-{{ forloop.counter }}" unchecked>
+              <label class="custom-control-label" for="checkbox-{{ forloop.counter }}"></label></div>
+          </td>
+          {% for item in r %}
+          <td>{{item}}</td>
+          {% endfor %}
+          </tr>
+          {% endfor %}
+        </tbody>
+    </div>
+    <button type="submit" form="buildForm" class="btn btn-secondary mr-2" href="{% url 'browser-builder' %}">Build
+      Query</button>
+    <button type="button" class="btn btn-secondary ml-1" href="#">Download CSV</button>
+</form>
+</div>
+
+{% endblock content %}
+
+{% comment %} <td><input type="checkbox" name="selected_options" value="v.id"> {% endcomment %}

@@ -1,0 +1,9 @@
+Django>=3.0,<4.0
+neomodel
+django_neomodel
+django-environ
+treelib
+requests
+nltk
+django-crispy-forms
+neo4j
