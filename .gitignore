@@ -2,6 +2,7 @@
 source_data/
 secrets.json
 docker/
+*.env
 *.i2qy\~
 # Byte-compiled / optimized / DLL files
 __pycache__/
