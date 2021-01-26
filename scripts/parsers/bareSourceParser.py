@@ -10,7 +10,6 @@ import argparse
 import logging
 from os import path
 from parse_it import getTerm,parseMeshValue,parseTagValue,parseTrees,addNodeLabel,addLabel,handle
-from omim_parser import omim_parser
 from oboParser import oboParser
 import ctd
 import mesh
