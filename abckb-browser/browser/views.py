@@ -68,7 +68,7 @@ def runquery(request):
     # Table header: Output node, Path, Source (Text-mined, hybrid, ) 
     # Buttons: View Cypher Query, Download CSV
     if request.method == "GET":
-        discovery = request.GET["open_discovery"]
+        discovery = "on" #request.GET["open_discovery"]
         if discovery == "on":
             label = request.GET["toLabel"]
             start_nodes = []

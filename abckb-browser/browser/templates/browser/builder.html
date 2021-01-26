@@ -60,6 +60,7 @@
                         <div class="col">
                             <p class="h5">End Nodes</p>
                         </div>
+                        {% comment %} 
                         <div class="col">
                             <div class="btn-group btn-group-toggle d-flex" data-toggle="tooltip" data-placement="top"
                                 title="Select open for open discovery or closed for closed discovery"
@@ -70,18 +71,8 @@
                                 <label class="btn btn-secondary">
                                     <input type="radio" name="closed_discovery" id="closeD" autocomplete="off" disabled> Closed
                                 </label>
-                            </div>
-                            {% comment %} <div class="dropdown">
-                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Query Type
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item" onclick="open_discovery()">Open Discovery</a>
-                                    <a class="dropdown-item" onclick="closed_discovery()">Closed Discovery</a>
-                                </div>
-                            </div> {% endcomment %}
-                        </div>
+                            </div> 
+                        </div>{% endcomment %}
                     </div>
                     <div class="form-group">
                         <div class="table-responsive">
