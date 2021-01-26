@@ -60,9 +60,6 @@ if [[ ! -f "${PROG}/docker/neo4j/import/FINISHED_IMPORT" ]]; then
 fi
 
 while [[ $BROWSABLE = "false" ]]; do
-    # if [[ -f "${PROG}/docker/neo4j/logs/debug.log" ]]; then
-    #     tail -n 5 $PROG/docker/neo4j/logs/debug.log | grep "SERVER STARTED START" >/dev/null && export BROWSABLE="true" || echo "false"
-    # fi
     curl -s "neo4j:7474" >/dev/null && export BROWSABLE="true"
 	sleep 5
 done
