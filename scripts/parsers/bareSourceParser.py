@@ -365,10 +365,10 @@ def main():
             elif "mim2gene" in F:
                 mimgen = F
             elif "mondo" in F:
-                mondo = F
+                mon = F
             else:
                 logger.error(f"I'm not sure what to do with this file!\n file:{F}")
-        outDict = geneParser(gene_info, gene2go, mimgen, mondo, NAMESPACE)
+        outDict = geneParser(gene_info, gene2go, mimgen, mon, NAMESPACE)
     # NALT parsing
     elif NAMESPACE == "usda.nal.thesaurus":
         logger.info('Parsing NAL files...')
