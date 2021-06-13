@@ -5,7 +5,7 @@ import json
 import logging
 from os import path, getcwd, makedirs
 from urllib.parse import urlparse
-from urllib.request import urlretrieve
+from urllib.request import urlretrieve, urlcleanup
 import requests
 import shutil
 import argparse
@@ -55,6 +55,7 @@ def runner(source):
     try:
         if not path.exists(path_and_file_name):
             if url.startswith("ftp"):
+                urlcleanup()
                 urlretrieve(url, path_and_file_name)
             else:
                 retrieve(url,path_and_file_name)

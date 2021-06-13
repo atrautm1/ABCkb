@@ -28,7 +28,7 @@ if [[ ! -f "${PROG}/docker/neo4j/import/FINISHED_IMPORT" ]]; then
     echo "Parsing Structured Vocabularies..."
     echo " "
 
-    time python3 "${PROG}${BARE}" -i "${DATA}/nal/NAL_Thesaurus_2019_XML.zip" -o "${RESULT}" -n usda.nal.thesaurus
+    time python3 "${PROG}${BARE}" -i "${DATA}/nal/NAL_Thesaurus_2020_XML.zip" -o "${RESULT}" -n usda.nal.thesaurus
     time python3 "${PROG}${BARE}" -i "${DATA}/hpo/hp.obo" -o "${RESULT}" -n human.phenotype.hpo
     time python3 "${PROG}${BARE}" -i "${DATA}/go/go.obo" -o "${RESULT}" -n gene.ontology.go
     time python3 "${PROG}${BARE}" -i "${DATA}/chebi/chebi.obo.gz" -o "${RESULT}" -n ebi.chebi
