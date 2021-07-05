@@ -64,7 +64,7 @@ def runner(source):
             shutil.unpack_archive(path_and_file_name, directory)
             logger.info(f"Unpacked: {path_and_file_name}")
     except Exception as e:
-        logger.error(f"Problem with {file_name} {url}")
+        logger.error(f"Problem with {file_name}.. You may need to manually download from: {url}")
         logger.error(e)
 
 def main():
