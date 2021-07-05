@@ -3,9 +3,7 @@
         "name": "chebi",
         "baseURL": "http://ftp.ebi.ac.uk/pub/databases/chebi/",
         "files": [
-            "ontology/chebi.obo.gz",
-            "Flat_file_tab_delimited/compound_origins.tsv",
-            "Flat_file_tab_delimited/compounds.tsv.gz"
+            "ontology/chebi.obo.gz"
         ]
     },
     {
@@ -44,7 +42,7 @@
     },
     {
         "name": "mesh",
-        "baseURL": "ftp://nlmpubs.nlm.nih.gov/online/mesh/2019/",
+        "baseURL": "https://nlmpubs.nlm.nih.gov/projects/mesh/2019/",
         "files": [
             "asciimesh/c2019.bin",
             "asciimesh/d2019.bin",

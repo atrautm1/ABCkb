@@ -3,7 +3,7 @@
 import concurrent.futures
 import json
 import logging
-from os import path, getcwd, makedirs
+from os import path, getcwd, makedirs, environ
 from urllib.parse import urlparse
 from urllib.request import urlretrieve, urlcleanup
 import requests
@@ -32,12 +32,12 @@ def readArgs():
 
 def retrieve(url, path_and_file):
     # Get url data
-    response = requests.get(url,stream=True)    
+    # try:
+    response = requests.get(url, stream=True)
     # Raise an error if status error
     response.raise_for_status()
-    # Write file to output
     with open(path_and_file,"wb") as outfile:
-        for block in response.iter_content(1024):
+        for block in response: #.iter_content(1024):
             outfile.write(block)
 
 def runner(source):
@@ -77,9 +77,6 @@ def main():
     DATA_DIR = path.join(args.outdir)
     # Ensure source_data directory exists
     check_directory(DATA_DIR)
-
-    # Create neo4j input directory
-    check_directory(path.join(DATA_DIR, "neo4j_input"))
 
     # Read sources.json file
     with open(path.join(LOCATION, "sources.json"), "r") as json_file:

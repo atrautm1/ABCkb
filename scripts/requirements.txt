@@ -7,3 +7,4 @@ requests
 nltk
 django-crispy-forms
 neo4j
+certifi
